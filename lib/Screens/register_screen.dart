@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:country_picker/country_picker.dart';
+import 'package:delivery_panel/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -25,16 +28,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    phoneController.selection = TextSelection.fromPosition(
+      TextPosition(offset: phoneController.text.length)
+    );
+
+
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 35, vertical: 25),
+            padding: EdgeInsets.symmetric(horizontal: 35, vertical: 10),
             child: Column(
+
               children: [
+                SizedBox(height: 50,),
                 Container(
                   width: 200,
                   height: 200,
+
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -66,6 +78,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 TextFormField(
                   cursorColor: Colors.purple,
                   controller: phoneController,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18
+                  ),
                   onChanged: (value){
                     setState(() {
                       phoneController.text = value;
@@ -73,6 +89,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                   decoration: InputDecoration(
                       hintText: "Enter Phone Number",
+                      hintStyle:  TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey.shade600,
+                        fontWeight: FontWeight.w400
+                      ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.black12),
@@ -103,6 +124,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     suffixIcon: phoneController.text.length> 9 ? Container(
                       height: 30,
                       width: 30,
+                      margin: EdgeInsets.all(10.0),
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.green
@@ -112,7 +134,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       size: 20,),
                     ) : null,
                   ),
+                ),
+                const SizedBox(height: 20,),
+
+
+
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: CustomButton(text: "Login",
+                  onPressed: (){},),
+
                 )
+
               ],
             ),
           ),
