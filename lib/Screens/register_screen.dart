@@ -4,7 +4,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:delivery_panel/provider/auth_provider.dart';
 import 'package:delivery_panel/utils/utils.dart';
 import 'package:delivery_panel/widgets/custom_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -147,7 +147,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: double.infinity,
                   height: 50,
                   child: CustomButton(text: "Login",
-                  onPressed: (){},),
+                  onPressed: ()  => sendPhoneNumber(),),
 
                 )
 
@@ -162,7 +162,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void sendPhoneNumber (){
     final ap = Provider.of<AuthProvider>(context, listen: false);
     String phoneNumber = phoneController.text.trim();
+    ap.signInWithPhone(context , "+${selectedCountry.phoneCode}$phoneNumber");
   }
 
-    
+
 }

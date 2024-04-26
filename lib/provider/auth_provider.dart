@@ -1,3 +1,4 @@
+import 'package:delivery_panel/Screens/otp_screen.dart';
 import 'package:delivery_panel/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +23,21 @@ class AuthProvider extends ChangeNotifier{
   void signInWithPhone (BuildContext context, String phoneNumber) async{
     try{
       await _firebaseAuth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential ) async{
           await _firebaseAuth.signInWithCredential(phoneAuthCredential);
         }, 
         verificationFailed: (error){
           throw Exception(error.message);
         }, 
-        codeSent: codeSent, 
-        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout)
+        codeSent: (verificationId, forceResendingToken) {
+          Navigator.push(context, 
+          MaterialPageRoute(builder: (context) => OtpScreen(verificationId: verificationId),
+          ),
+          );
+        }, 
+        codeAutoRetrievalTimeout: ((verificationId) {})
+        );
     }
     on FirebaseAuthException catch(e){
       showSnackBar(context, e.message.toString());
