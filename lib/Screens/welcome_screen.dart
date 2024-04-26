@@ -1,8 +1,11 @@
 import 'dart:ui';
 
+import 'package:delivery_panel/Screens/home_screen.dart';
 import 'package:delivery_panel/Screens/register_screen.dart';
+import 'package:delivery_panel/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:delivery_panel/widgets/custom_button.dart';
+import 'package:provider/provider.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -14,6 +17,8 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final ap = Provider.of<AuthProvider>(context, listen: false);
+
     return Scaffold(
       body: SafeArea(
           child: Center(
@@ -51,6 +56,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     height: 50,
                     child: CustomButton(
                      onPressed: (){
+                       ap.isSignedIn == true ?  // when true fetch shared preference data
+                       Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const HomeScreen())) :
+
+
                        Navigator.push(
                          context,
                          MaterialPageRoute(
