@@ -1,8 +1,12 @@
 import 'dart:ui';
 
 import 'package:country_picker/country_picker.dart';
+import 'package:delivery_panel/provider/auth_provider.dart';
+import 'package:delivery_panel/utils/utils.dart';
 import 'package:delivery_panel/widgets/custom_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -154,4 +158,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  void sendPhoneNumber (){
+    final ap = Provider.of<AuthProvider>(context, listen: false);
+    String phoneNumber = phoneController.text.trim();
+  }
+
+    
 }
